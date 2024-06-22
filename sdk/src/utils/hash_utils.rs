@@ -19,7 +19,7 @@ use std::{
 };
 
 //use conv::ValueFrom;
-use log::warn;
+use tracing::warn;
 // multihash versions
 use multibase::{decode, encode};
 use multihash::{wrap, Code, Multihash, Sha1, Sha2_256, Sha2_512, Sha3_256, Sha3_384, Sha3_512};

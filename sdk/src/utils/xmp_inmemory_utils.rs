@@ -17,7 +17,7 @@ use fast_xml::{
     events::{BytesStart, Event},
     Reader, Writer,
 };
-use log::error;
+use tracing::error;
 
 use crate::{
     asset_io::CAIRead, jumbf_io::get_cailoader_handler, utils::hash_utils::vec_compare, Error,

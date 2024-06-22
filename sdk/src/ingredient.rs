@@ -16,7 +16,7 @@
 use std::path::{Path, PathBuf};
 use std::{borrow::Cow, io::Cursor};
 
-use log::{debug, error};
+use tracing::{debug, error};
 #[cfg(feature = "json_schema")]
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};

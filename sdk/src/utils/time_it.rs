@@ -13,7 +13,7 @@
 
 use std::time::Instant;
 
-use log::info;
+use tracing::info;
 
 // (Internal debugging tool.)
 // Measure and log the time from the creation of this struct until it is dropped.

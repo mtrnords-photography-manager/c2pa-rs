@@ -19,7 +19,7 @@ use std::{
 use std::{fs, path::Path};
 
 use async_generic::async_generic;
-use log::error;
+use tracing::error;
 
 #[cfg(feature = "file_io")]
 use crate::jumbf_io::{

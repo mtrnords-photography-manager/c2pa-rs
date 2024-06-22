@@ -17,7 +17,7 @@
 
 #![deny(missing_docs)]
 
-use log::debug;
+use tracing::debug;
 #[cfg(feature = "json_schema")]
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
