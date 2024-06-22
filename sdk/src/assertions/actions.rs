@@ -152,7 +152,7 @@ impl Action {
         }
     }
 
-    fn is_v2(&self) -> bool {
+    const fn is_v2(&self) -> bool {
         matches!(
             self.software_agent,
             Some(SoftwareAgent::ClaimGeneratorInfo(_))
@@ -175,7 +175,7 @@ impl Action {
     }
 
     /// Returns the software agent that performed the action.
-    pub fn software_agent(&self) -> Option<&SoftwareAgent> {
+    pub const fn software_agent(&self) -> Option<&SoftwareAgent> {
         self.software_agent.as_ref()
     }
 
@@ -193,7 +193,7 @@ impl Action {
     /// Returns the additional parameters for this action.
     ///
     /// These vary by the type of action.
-    pub fn parameters(&self) -> Option<&HashMap<String, Value>> {
+    pub const fn parameters(&self) -> Option<&HashMap<String, Value>> {
         self.parameters.as_ref()
     }
 
@@ -379,7 +379,7 @@ impl Actions {
     pub const LABEL: &'static str = labels::ACTIONS;
 
     /// Creates a new [`Actions`] assertion struct.
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         Self {
             actions: Vec::new(),
             templates: None,
@@ -406,7 +406,7 @@ impl Actions {
     }
 
     /// Returns the assertion's [`Metadata`], if it exists.
-    pub fn metadata(&self) -> Option<&Metadata> {
+    pub const fn metadata(&self) -> Option<&Metadata> {
         self.metadata.as_ref()
     }
 

@@ -20,7 +20,7 @@ pub struct EdValidator {
 }
 
 impl EdValidator {
-    pub fn new(alg: SigningAlg) -> Self {
+    pub const fn new(alg: SigningAlg) -> Self {
         EdValidator { _alg: alg }
     }
 }

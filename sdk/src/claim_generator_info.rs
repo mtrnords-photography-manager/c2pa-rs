@@ -61,7 +61,7 @@ impl ClaimGeneratorInfo {
     }
 
     /// Returns the software agent that performed the action.
-    pub fn icon(&self) -> Option<&UriOrResource> {
+    pub const fn icon(&self) -> Option<&UriOrResource> {
         self.icon.as_ref()
     }
 

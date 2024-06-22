@@ -629,7 +629,7 @@ impl RemoteRefEmbed for JpegIO {
     }
 }
 
-fn in_entropy(marker: u8) -> bool {
+const fn in_entropy(marker: u8) -> bool {
     matches!(marker, RST0..=RST7 | Z)
 }
 
@@ -666,7 +666,7 @@ fn get_entropy_size(input_stream: &mut dyn CAIRead) -> Result<usize> {
     Ok(size)
 }
 
-fn has_length(marker: u8) -> bool {
+const fn has_length(marker: u8) -> bool {
     matches!(marker, RST0..=RST7 | APP0..=APP15 | SOF0..=SOF15 | SOS | COM | DQT | DRI)
 }
 

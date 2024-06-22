@@ -75,11 +75,11 @@ impl ID3V2Header {
         })
     }
 
-    pub fn get_size(&self) -> u32 {
+    pub const fn get_size(&self) -> u32 {
         self.tag_size + 10
     }
 
-    fn decode_tag_size(n: u32) -> u32 {
+    const fn decode_tag_size(n: u32) -> u32 {
         n & 0xff | (n & 0xff00) >> 1 | (n & 0xff0000) >> 2 | (n & 0xff000000) >> 3
     }
 }

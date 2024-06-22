@@ -54,7 +54,7 @@ struct PngChunkPos {
 }
 
 impl PngChunkPos {
-    pub fn end(&self) -> u64 {
+    pub const fn end(&self) -> u64 {
         self.start + self.length as u64 + PNG_HDR_LEN
     }
 }

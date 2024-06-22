@@ -68,7 +68,7 @@ impl HashedUri {
         self.salt = salt;
     }
 
-    pub fn salt(&self) -> &Option<Vec<u8>> {
+    pub const fn salt(&self) -> &Option<Vec<u8>> {
         &self.salt
     }
 }

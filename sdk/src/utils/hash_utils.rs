@@ -42,7 +42,7 @@ pub struct HashRange {
 }
 
 impl HashRange {
-    pub fn new(start: usize, length: usize) -> Self {
+    pub const fn new(start: usize, length: usize) -> Self {
         HashRange {
             start,
             length,
@@ -57,12 +57,12 @@ impl HashRange {
     }
 
     /// return start as usize
-    pub fn start(&self) -> usize {
+    pub const fn start(&self) -> usize {
         self.start
     }
 
     /// return length as usize
-    pub fn length(&self) -> usize {
+    pub const fn length(&self) -> usize {
         self.length
     }
 
@@ -76,7 +76,7 @@ impl HashRange {
     }
 
     // get option offset for BMFF_V2 hash
-    pub fn bmff_offset(&self) -> Option<u64> {
+    pub const fn bmff_offset(&self) -> Option<u64> {
         self.bmff_offset
     }
 }

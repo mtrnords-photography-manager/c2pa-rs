@@ -87,7 +87,7 @@ enum IFDEntryType {
 }
 
 impl IFDEntryType {
-    pub fn from_u16(val: u16) -> Option<IFDEntryType> {
+    pub const fn from_u16(val: u16) -> Option<IFDEntryType> {
         match val {
             1 => Some(IFDEntryType::Byte),
             2 => Some(IFDEntryType::Ascii),

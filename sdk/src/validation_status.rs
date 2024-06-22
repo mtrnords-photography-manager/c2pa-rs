@@ -108,7 +108,7 @@ impl ValidationStatus {
     }
 
     // Maps errors into validation_status codes.
-    fn code_from_error(error: &Error) -> &str {
+    const fn code_from_error(error: &Error) -> &str {
         match error {
             Error::ClaimMissing { .. } => CLAIM_MISSING,
             Error::AssertionMissing { .. } => ASSERTION_MISSING,

@@ -251,7 +251,7 @@ impl Assertion {
     // }
 
     // Return version string of known assertion if available
-    pub(crate) fn get_ver(&self) -> Option<usize> {
+    pub(crate) const fn get_ver(&self) -> Option<usize> {
         self.version
     }
 
@@ -271,11 +271,11 @@ impl Assertion {
     // }
 
     /// Return a reference to the AssertionData bound to this Assertion
-    pub(crate) fn decode_data(&self) -> &AssertionData {
+    pub(crate) const fn decode_data(&self) -> &AssertionData {
         &self.data
     }
 
-    /// return mimetype for the the data enclosed in the Assertion
+    /// return mimetype for the data enclosed in the Assertion
     pub(crate) fn mime_type(&self) -> String {
         self.content_type.clone()
     }

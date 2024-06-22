@@ -122,7 +122,7 @@ fn default_format() -> String {
     "application/octet-stream".to_owned()
 }
 
-fn default_vec<T>() -> Vec<T> {
+const fn default_vec<T>() -> Vec<T> {
     Vec::new()
 }
 
@@ -171,7 +171,7 @@ impl Manifest {
     }
 
     /// Returns a thumbnail ResourceRef or `None`.
-    pub fn thumbnail_ref(&self) -> Option<&ResourceRef> {
+    pub const fn thumbnail_ref(&self) -> Option<&ResourceRef> {
         self.thumbnail.as_ref()
     }
 
@@ -298,7 +298,7 @@ impl Manifest {
         self
     }
 
-    pub fn signature_info(&self) -> Option<&SignatureInfo> {
+    pub const fn signature_info(&self) -> Option<&SignatureInfo> {
         self.signature_info.as_ref()
     }
 
@@ -460,7 +460,7 @@ impl Manifest {
     }
 
     /// Return an immutable reference to the manifest resources
-    pub fn resources(&self) -> &ResourceStore {
+    pub const fn resources(&self) -> &ResourceStore {
         &self.resources
     }
 
@@ -995,15 +995,16 @@ impl Manifest {
         source_path: P,
         dest_path: P,
         signer: &dyn Signer,
-    ) -> Result<Vec<u8>> {
+    ) -> Result<()> {
         // Add manifest info for this target file
         let source_path = self.embed_prep(source_path.as_ref(), dest_path.as_ref())?;
 
         // convert the manifest to a store
         let mut store = self.to_store()?;
 
-        // sign and write our store to to the output image file
-        store.save_to_asset(source_path.as_ref(), signer, dest_path.as_ref())
+        // sign and write our store to the output image file
+        store.save_to_asset(source_path.as_ref(), signer, dest_path.as_ref())?;
+        Ok(())
     }
 
     /// Embed a signed manifest into a stream using a supplied signer.

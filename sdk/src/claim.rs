@@ -130,7 +130,7 @@ impl ClaimAssertion {
         }
     }
 
-    pub fn instance(&self) -> usize {
+    pub const fn instance(&self) -> usize {
         self.instance
     }
 
@@ -142,7 +142,7 @@ impl ClaimAssertion {
         self.assertion.label()
     }
 
-    pub fn assertion(&self) -> &Assertion {
+    pub const fn assertion(&self) -> &Assertion {
         &self.assertion
     }
 
@@ -150,7 +150,7 @@ impl ClaimAssertion {
         &self.hash_val
     }
 
-    pub fn salt(&self) -> &Option<Vec<u8>> {
+    pub const fn salt(&self) -> &Option<Vec<u8>> {
         &self.salt
     }
 
@@ -389,7 +389,7 @@ impl Claim {
     }
 
     /// return version this claim supports
-    pub fn build_version() -> &'static str {
+    pub const fn build_version() -> &'static str {
         Self::LABEL
     }
 
@@ -424,7 +424,7 @@ impl Claim {
     }
 
     ///  get signature of the claim
-    pub fn signature_val(&self) -> &Vec<u8> {
+    pub const fn signature_val(&self) -> &Vec<u8> {
         &self.signature_val
     }
 
@@ -449,7 +449,7 @@ impl Claim {
     }
 
     /// get title
-    pub fn title(&self) -> Option<&String> {
+    pub const fn title(&self) -> Option<&String> {
         self.title.as_ref()
     }
 
@@ -479,12 +479,12 @@ impl Claim {
     }
 
     /// get soft algorithm
-    pub fn alg_soft(&self) -> Option<&String> {
+    pub const fn alg_soft(&self) -> Option<&String> {
         self.alg_soft.as_ref()
     }
 
     /// Is this an update manifest
-    pub fn update_manifest(&self) -> bool {
+    pub const fn update_manifest(&self) -> bool {
         self.update_manifest
     }
 
@@ -569,7 +569,7 @@ impl Claim {
         }
     }
 
-    pub fn get_claim_generator_hint_map(&self) -> Option<&HashMap<String, Value>> {
+    pub const fn get_claim_generator_hint_map(&self) -> Option<&HashMap<String, Value>> {
         self.claim_generator_hints.as_ref()
     }
 
@@ -712,7 +712,7 @@ impl Claim {
         Ok(databox_uri)
     }
 
-    pub(crate) fn databoxes(&self) -> &Vec<(HashedUri, DataBox)> {
+    pub(crate) const fn databoxes(&self) -> &Vec<(HashedUri, DataBox)> {
         &self.data_boxes
     }
 
@@ -850,7 +850,7 @@ impl Claim {
         self.vc_store.iter().map(|t| &t.1).collect::<Vec<_>>()
     }
 
-    pub fn get_verifiable_credentials_store(&self) -> &Vec<(HashedUri, AssertionData)> {
+    pub const fn get_verifiable_credentials_store(&self) -> &Vec<(HashedUri, AssertionData)> {
         &self.vc_store
     }
 
@@ -1526,13 +1526,13 @@ impl Claim {
     }
 
     /// Return reference to the internal claim assertion store.
-    pub fn claim_assertion_store(&self) -> &Vec<ClaimAssertion> {
+    pub const fn claim_assertion_store(&self) -> &Vec<ClaimAssertion> {
         &self.assertion_store
     }
 
     /// Return reference to the internal claim ingredient store.
     /// Used during generation
-    pub fn claim_ingredient_store(&self) -> &HashMap<String, Vec<Claim>> {
+    pub const fn claim_ingredient_store(&self) -> &HashMap<String, Vec<Claim>> {
         &self.ingredients_store
     }
 
@@ -1574,7 +1574,7 @@ impl Claim {
     }
 
     /// List of redactions
-    pub fn redactions(&self) -> Option<&Vec<String>> {
+    pub const fn redactions(&self) -> Option<&Vec<String>> {
         self.redacted_assertions.as_ref()
     }
 
@@ -1603,7 +1603,7 @@ impl Claim {
     ///
     /// This list matches item-for-item with the `Assertion`s
     /// stored in the assertion store.
-    pub fn assertions(&self) -> &Vec<C2PAAssertion> {
+    pub const fn assertions(&self) -> &Vec<C2PAAssertion> {
         &self.assertions
     }
 

@@ -709,7 +709,7 @@ impl Values for SignedAttributes {
 pub struct SignedAttributesDer(SignedAttributes, Option<Tag>);
 
 impl SignedAttributesDer {
-    pub fn new(sa: SignedAttributes, tag: Option<Tag>) -> Self {
+    pub const fn new(sa: SignedAttributes, tag: Option<Tag>) -> Self {
         Self(sa, tag)
     }
 }

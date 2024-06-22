@@ -95,14 +95,14 @@ impl Ingredient {
     }
 
     /// determines if an ingredient is a v2 ingredient
-    fn is_v2(&self) -> bool {
+    const fn is_v2(&self) -> bool {
         self.instance_id.is_none()
             || self.data.is_some()
             || self.description.is_some()
             || self.informational_uri.is_some()
     }
 
-    pub fn set_parent(mut self) -> Self {
+    pub const fn set_parent(mut self) -> Self {
         self.relationship = Relationship::ParentOf;
         self
     }

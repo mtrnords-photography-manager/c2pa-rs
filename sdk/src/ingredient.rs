@@ -230,7 +230,7 @@ impl Ingredient {
     }
 
     /// Returns a ResourceRef or `None`.
-    pub fn thumbnail_ref(&self) -> Option<&ResourceRef> {
+    pub const fn thumbnail_ref(&self) -> Option<&ResourceRef> {
         self.thumbnail.as_ref()
     }
 
@@ -260,7 +260,7 @@ impl Ingredient {
     }
 
     /// Returns the relationship status of the ingredient.
-    pub fn relationship(&self) -> &Relationship {
+    pub const fn relationship(&self) -> &Relationship {
         &self.relationship
     }
 
@@ -270,7 +270,7 @@ impl Ingredient {
     }
 
     /// Returns a reference to [`Metadata`] if it exists.
-    pub fn metadata(&self) -> Option<&Metadata> {
+    pub const fn metadata(&self) -> Option<&Metadata> {
         self.metadata.as_ref()
     }
 
@@ -285,7 +285,7 @@ impl Ingredient {
     /// Returns a reference to C2PA manifest data if it exists.
     ///
     /// manifest_data is the binary form of a manifest store in .c2pa format.
-    pub fn manifest_data_ref(&self) -> Option<&ResourceRef> {
+    pub const fn manifest_data_ref(&self) -> Option<&ResourceRef> {
         self.manifest_data.as_ref()
     }
 
@@ -299,7 +299,7 @@ impl Ingredient {
     }
 
     /// Returns a reference to ingredient data if it exists.
-    pub fn data_ref(&self) -> Option<&ResourceRef> {
+    pub const fn data_ref(&self) -> Option<&ResourceRef> {
         self.data.as_ref()
     }
 
@@ -473,7 +473,7 @@ impl Ingredient {
     }
 
     /// Return an immutable reference to the ingredient resources
-    pub fn resources(&self) -> &ResourceStore {
+    pub const fn resources(&self) -> &ResourceStore {
         &self.resources
     }
 

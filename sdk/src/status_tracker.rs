@@ -112,7 +112,7 @@ pub struct DetailedStatusTracker {
 }
 
 impl DetailedStatusTracker {
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         DetailedStatusTracker {
             logged_items: Vec::new(),
             stop_on_error: false,
@@ -156,7 +156,7 @@ pub struct OneShotStatusTracker {
 }
 
 impl OneShotStatusTracker {
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         OneShotStatusTracker {
             logged_items: Vec::new(),
             stop_on_error: true,

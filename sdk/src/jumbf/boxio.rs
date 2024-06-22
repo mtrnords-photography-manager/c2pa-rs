@@ -25,11 +25,11 @@ pub struct ByteCounter<T> {
 }
 
 impl<T> ByteCounter<T> {
-    pub fn new(inner: T) -> Self {
+    pub const fn new(inner: T) -> Self {
         ByteCounter { inner, count: 0 }
     }
 
-    pub fn count(&self) -> usize {
+    pub const fn count(&self) -> usize {
         self.count
     }
 }

@@ -90,7 +90,7 @@ fn default_format() -> String {
     "application/octet-stream".to_owned()
 }
 
-fn default_vec<T>() -> Vec<T> {
+const fn default_vec<T>() -> Vec<T> {
     Vec::new()
 }
 
@@ -255,7 +255,7 @@ impl Builder {
         stream.read_to_end(&mut resource)?;
         // add the resource and set the resource reference
         self.resources
-            .add(&self.definition.instance_id.clone(), resource)?;
+            .add(self.definition.instance_id.clone(), resource)?;
         self.definition.thumbnail = Some(ResourceRef::new(
             format,
             self.definition.instance_id.clone(),

@@ -77,7 +77,7 @@ impl ManifestStore {
 
     /// Returns a reference to manifest HashMap
     #[cfg(feature = "v1_api")]
-    pub fn manifests(&self) -> &HashMap<String, Manifest> {
+    pub const fn manifests(&self) -> &HashMap<String, Manifest> {
         &self.manifests
     }
 
@@ -173,7 +173,7 @@ impl ManifestStore {
         manifest_store
     }
 
-    pub(crate) fn store(&self) -> &Store {
+    pub(crate) const fn store(&self) -> &Store {
         &self.store
     }
 

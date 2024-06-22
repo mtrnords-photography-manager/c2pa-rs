@@ -225,7 +225,7 @@ impl Signer for RsaSigner {
     }
 }
 
-fn wrap_openssl_err(err: openssl::error::ErrorStack) -> Error {
+const fn wrap_openssl_err(err: openssl::error::ErrorStack) -> Error {
     Error::OpenSslError(err)
 }
 

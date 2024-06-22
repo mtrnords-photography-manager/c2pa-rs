@@ -20,7 +20,7 @@ pub struct EcValidator {
 }
 
 impl EcValidator {
-    pub fn new(alg: SigningAlg) -> Self {
+    pub const fn new(alg: SigningAlg) -> Self {
         EcValidator { alg }
     }
 }
@@ -72,7 +72,7 @@ impl CoseValidator for EcValidator {
     }
 }
 
-fn wrap_openssl_err(err: openssl::error::ErrorStack) -> Error {
+const fn wrap_openssl_err(err: openssl::error::ErrorStack) -> Error {
     Error::OpenSslError(err)
 }
 

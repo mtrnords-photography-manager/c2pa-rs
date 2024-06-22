@@ -271,7 +271,7 @@ impl JUMBFSuperBox {
     }
 
     // getters
-    pub fn desc_box(&self) -> &JUMBFDescriptionBox {
+    pub const fn desc_box(&self) -> &JUMBFDescriptionBox {
         &self.desc_box
     }
 
@@ -616,7 +616,7 @@ impl JUMBFJSONContentBox {
     }
 
     // getter
-    pub fn json(&self) -> &Vec<u8> {
+    pub const fn json(&self) -> &Vec<u8> {
         &self.json
     }
 }
@@ -659,7 +659,7 @@ impl JUMBFCBORContentBox {
     }
 
     // getter
-    pub fn cbor(&self) -> &Vec<u8> {
+    pub const fn cbor(&self) -> &Vec<u8> {
         &self.cbor
     }
 }
@@ -705,7 +705,7 @@ impl JUMBFCodestreamContentBox {
     }
 
     // getter
-    pub fn data(&self) -> &Vec<u8> {
+    pub const fn data(&self) -> &Vec<u8> {
         &self.data
     }
 }
@@ -759,12 +759,12 @@ impl JUMBFUUIDContentBox {
     }
 
     // getters
-    pub fn uuid(&self) -> &[u8; 16] {
+    pub const fn uuid(&self) -> &[u8; 16] {
         &self.uuid
     }
 
     // getter
-    pub fn data(&self) -> &Vec<u8> {
+    pub const fn data(&self) -> &Vec<u8> {
         &self.data
     }
 }
@@ -1227,7 +1227,7 @@ impl CAIAssertionStore {
         }
     }
 
-    pub fn from(in_box: JUMBFSuperBox) -> Self {
+    pub const fn from(in_box: JUMBFSuperBox) -> Self {
         CAIAssertionStore { store: in_box }
     }
 
@@ -1279,7 +1279,7 @@ impl CAIDataboxStore {
         }
     }
 
-    pub fn from(in_box: JUMBFSuperBox) -> Self {
+    pub const fn from(in_box: JUMBFSuperBox) -> Self {
         CAIDataboxStore { store: in_box }
     }
 
@@ -1336,7 +1336,7 @@ impl CAIVerifiableCredentialStore {
         }
     }
 
-    pub fn from(in_box: JUMBFSuperBox) -> Self {
+    pub const fn from(in_box: JUMBFSuperBox) -> Self {
         CAIVerifiableCredentialStore { store: in_box }
     }
 
@@ -1417,11 +1417,11 @@ impl CAIStore {
     }
 
     // getters
-    pub fn super_box(&self) -> &JUMBFSuperBox {
+    pub const fn super_box(&self) -> &JUMBFSuperBox {
         &self.store
     }
 
-    pub fn desc_box(&self) -> &JUMBFDescriptionBox {
+    pub const fn desc_box(&self) -> &JUMBFDescriptionBox {
         &self.store.desc_box
     }
 
@@ -1481,7 +1481,7 @@ impl Cai {
         }
     }
 
-    pub fn from(in_box: JUMBFSuperBox) -> Self {
+    pub const fn from(in_box: JUMBFSuperBox) -> Self {
         Cai { sbox: in_box }
     }
 
@@ -1491,11 +1491,11 @@ impl Cai {
     }
 
     // getters
-    pub fn super_box(&self) -> &JUMBFSuperBox {
+    pub const fn super_box(&self) -> &JUMBFSuperBox {
         &self.sbox
     }
 
-    pub fn desc_box(&self) -> &JUMBFDescriptionBox {
+    pub const fn desc_box(&self) -> &JUMBFDescriptionBox {
         &self.sbox.desc_box
     }
 
@@ -1648,7 +1648,7 @@ impl JUMBFEmbeddedFileContentBox {
     }
 
     // getter
-    pub fn data(&self) -> &Vec<u8> {
+    pub const fn data(&self) -> &Vec<u8> {
         &self.data
     }
 }
@@ -1843,7 +1843,7 @@ pub struct BoxHeader {
     pub size: u64,
 }
 impl BoxHeader {
-    pub fn new(name: BoxType, size: u64) -> Self {
+    pub const fn new(name: BoxType, size: u64) -> Self {
         Self { name, size }
     }
 }

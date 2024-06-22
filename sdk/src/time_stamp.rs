@@ -216,7 +216,7 @@ impl std::ops::Deref for TimeStampResponse {
 impl TimeStampResponse {
     /// Whether the time stamp request was successful.
     #[cfg(not(target_arch = "wasm32"))]
-    pub fn is_success(&self) -> bool {
+    pub const fn is_success(&self) -> bool {
         matches!(
             self.0.status.status,
             crate::asn1::rfc3161::PkiStatus::Granted
@@ -393,7 +393,7 @@ pub struct TstContainer {
 }
 
 impl TstContainer {
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         TstContainer {
             tst_tokens: Vec::new(),
         }

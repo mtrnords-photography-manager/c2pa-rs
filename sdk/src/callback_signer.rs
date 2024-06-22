@@ -84,7 +84,7 @@ impl CallbackSigner {
     /// This can be used to store any necessary state for the callback.
     /// Safety: The context must be valid for the lifetime of the signer.
     /// There is no Rust memory management for the context since it may also come from FFI.    
-    pub fn set_context(mut self, context: *const ()) -> Self {
+    pub const fn set_context(mut self, context: *const ()) -> Self {
         self.context = context;
         self
     }

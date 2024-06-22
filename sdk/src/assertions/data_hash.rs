@@ -96,7 +96,7 @@ impl DataHash {
     }
 
     /// Checks if this is a remote hash
-    pub fn is_remote_hash(&self) -> bool {
+    pub const fn is_remote_hash(&self) -> bool {
         self.url.is_some()
     }
 

@@ -15,6 +15,7 @@
 #![deny(clippy::expect_used)]
 #![deny(clippy::panic)]
 #![deny(clippy::unwrap_used)]
+#![warn(clippy::missing_const_for_fn)]
 #![cfg_attr(docsrs, feature(doc_cfg, doc_auto_cfg, doc_cfg_hide))]
 
 //! This library supports reading, creating and embedding C2PA data

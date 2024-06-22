@@ -59,7 +59,7 @@ pub struct ExclusionsMap {
 }
 
 impl ExclusionsMap {
-    pub fn new(xpath: String) -> Self {
+    pub const fn new(xpath: String) -> Self {
         ExclusionsMap {
             xpath,
             length: None,
@@ -291,7 +291,7 @@ impl BmffHash {
         &mut self.exclusions
     }
 
-    pub fn alg(&self) -> Option<&String> {
+    pub const fn alg(&self) -> Option<&String> {
         self.alg.as_ref()
     }
 
@@ -299,7 +299,7 @@ impl BmffHash {
         self.hash.as_deref()
     }
 
-    pub fn merkle(&self) -> Option<&Vec<MerkleMap>> {
+    pub const fn merkle(&self) -> Option<&Vec<MerkleMap>> {
         self.merkle.as_ref()
     }
 
@@ -307,15 +307,15 @@ impl BmffHash {
         self.hash = Some(ByteBuf::from(hash));
     }
 
-    pub fn name(&self) -> Option<&String> {
+    pub const fn name(&self) -> Option<&String> {
         self.name.as_ref()
     }
 
-    pub fn url(&self) -> Option<&UriT> {
+    pub const fn url(&self) -> Option<&UriT> {
         self.url.as_ref()
     }
 
-    pub fn bmff_version(&self) -> usize {
+    pub const fn bmff_version(&self) -> usize {
         self.bmff_version
     }
 
@@ -324,7 +324,7 @@ impl BmffHash {
     }
 
     /// Returns `true` if this is a remote hash.
-    pub fn is_remote_hash(&self) -> bool {
+    pub const fn is_remote_hash(&self) -> bool {
         self.url.is_some()
     }
 

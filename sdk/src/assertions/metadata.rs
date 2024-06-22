@@ -74,7 +74,7 @@ impl Metadata {
     }
 
     /// Returns the [`DataSource`] for this assertion if it exists.
-    pub fn data_source(&self) -> Option<&DataSource> {
+    pub const fn data_source(&self) -> Option<&DataSource> {
         self.data_source.as_ref()
     }
 

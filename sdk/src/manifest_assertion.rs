@@ -44,7 +44,7 @@ pub struct ManifestAssertion {
 
 impl ManifestAssertion {
     /// Create with label and value
-    pub fn new(label: String, data: Value) -> Self {
+    pub const fn new(label: String, data: Value) -> Self {
         Self {
             label,
             data: ManifestData::Json(data),
@@ -70,7 +70,7 @@ impl ManifestAssertion {
 
     /// The data of the assertion as a serde_Json::Value
     /// This will return UnsupportedType if the assertion data is binary
-    pub fn value(&self) -> Result<&Value> {
+    pub const fn value(&self) -> Result<&Value> {
         match &self.data {
             ManifestData::Json(d) => Ok(d),
             ManifestData::Binary(_) => Err(Error::UnsupportedType),
@@ -96,7 +96,7 @@ impl ManifestAssertion {
     /// The ManifestAssertionKind for this assertion
     /// This refers to how the format of the assertion inside a C2PA manifest
     /// The default is ManifestAssertionKind::Cbor
-    pub fn kind(&self) -> &ManifestAssertionKind {
+    pub const fn kind(&self) -> &ManifestAssertionKind {
         match self.kind.as_ref() {
             Some(kind) => kind,
             None => &ManifestAssertionKind::Cbor,
@@ -105,14 +105,14 @@ impl ManifestAssertion {
 
     /// This can be used to set an instance number, but generally should not be used
     /// Instance numbers will be assigned automatically when the assertions are embedded
-    pub(crate) fn set_instance(mut self, instance: usize) -> Self {
+    pub(crate) const fn set_instance(mut self, instance: usize) -> Self {
         self.instance = if instance > 0 { Some(instance) } else { None };
         self
     }
 
     /// Allows overriding the default [ManifestAssertionKind] to Json
     /// For assertions like Schema.org that require being stored in Json format
-    pub fn set_kind(mut self, kind: ManifestAssertionKind) -> Self {
+    pub const fn set_kind(mut self, kind: ManifestAssertionKind) -> Self {
         self.kind = Some(kind);
         self
     }

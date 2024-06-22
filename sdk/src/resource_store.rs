@@ -39,7 +39,7 @@ use crate::{
 /// Function that is used by serde to determine whether or not we should serialize
 /// resources based on the `serialize_resources` flag.
 /// (Serialization is disabled by default.)
-pub(crate) fn skip_serializing_resources(_: &ResourceStore) -> bool {
+pub(crate) const fn skip_serializing_resources(_: &ResourceStore) -> bool {
     !cfg!(feature = "serialize_thumbnails") || cfg!(test) || cfg!(not(target_arch = "wasm32"))
 }
 
@@ -281,7 +281,7 @@ impl ResourceStore {
     }
 
     /// Returns a [`HashMap`] of internal resources.
-    pub fn resources(&self) -> &HashMap<String, Vec<u8>> {
+    pub const fn resources(&self) -> &HashMap<String, Vec<u8>> {
         &self.resources
     }
 

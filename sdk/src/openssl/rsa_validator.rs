@@ -20,7 +20,7 @@ pub struct RsaValidator {
 }
 
 impl RsaValidator {
-    pub fn new(alg: SigningAlg) -> Self {
+    pub const fn new(alg: SigningAlg) -> Self {
         RsaValidator { alg }
     }
 }
