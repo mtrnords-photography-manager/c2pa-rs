@@ -13,7 +13,7 @@
 
 use std::path::Path;
 
-use log::error;
+use tracing::error;
 use xmp_toolkit::{OpenFileOptions, XmpError, XmpErrorType, XmpFile, XmpMeta};
 
 use crate::{Error, Result};
