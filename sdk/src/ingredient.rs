@@ -13,9 +13,9 @@
 
 #![deny(missing_docs)]
 
-use std::{borrow::Cow, io::Cursor};
 #[cfg(feature = "file_io")]
 use std::path::{Path, PathBuf};
+use std::{borrow::Cow, io::Cursor};
 
 #[cfg(feature = "json_schema")]
 use schemars::JsonSchema;
@@ -23,8 +23,12 @@ use serde::{Deserialize, Serialize};
 use tracing::{debug, error};
 use uuid::Uuid;
 
+#[cfg(feature = "file_io")]
+use crate::utils::mime::extension_to_mime;
+#[cfg(doc)]
+use crate::Manifest;
 use crate::{
-    assertion::{Assertion, AssertionBase, get_thumbnail_image_type},
+    assertion::{get_thumbnail_image_type, Assertion, AssertionBase},
     assertions::{self, labels, Metadata, Relationship, Thumbnail},
     asset_io::CAIRead,
     claim::{Claim, ClaimAssetData},
@@ -35,16 +39,12 @@ use crate::{
         labels::{manifest_label_from_uri, to_assertion_uri},
     },
     jumbf_io::load_jumbf_from_stream,
-    resource_store::{ResourceRef, ResourceStore, skip_serializing_resources},
-    status_tracker::{DetailedStatusTracker, log_item, StatusTracker},
+    resource_store::{skip_serializing_resources, ResourceRef, ResourceStore},
+    status_tracker::{log_item, DetailedStatusTracker, StatusTracker},
     store::Store,
     utils::{base64, xmp_inmemory_utils::XmpInfo},
     validation_status::{self, status_for_store, ValidationStatus},
 };
-#[cfg(doc)]
-use crate::Manifest;
-#[cfg(feature = "file_io")]
-use crate::utils::mime::extension_to_mime;
 
 #[derive(Debug, Default, Deserialize, Serialize)]
 #[cfg_attr(feature = "json_schema", derive(JsonSchema))]
@@ -1613,9 +1613,8 @@ mod tests_file_io {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    use crate::utils::test::fixture_path;
-
     use super::*;
+    use crate::utils::test::fixture_path;
 
     #[cfg(target_arch = "wasm32")]
     wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);

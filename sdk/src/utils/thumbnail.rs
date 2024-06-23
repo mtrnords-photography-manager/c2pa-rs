@@ -13,7 +13,7 @@
 
 use std::io::{Read, Seek};
 
-use image::{ImageFormat, io::Reader};
+use image::{io::Reader, ImageFormat};
 
 use crate::{Error, Result};
 

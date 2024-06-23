@@ -17,10 +17,10 @@
 
 #![deny(missing_docs)]
 
-use tracing::debug;
 #[cfg(feature = "json_schema")]
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
+use tracing::debug;
 
 use crate::{
     assertion::AssertionBase,

@@ -31,8 +31,8 @@ use std::{
 
 use byteorder::{BigEndian, ReadBytesExt};
 use hex::FromHex;
-use tracing::debug;
 use thiserror::Error;
+use tracing::debug;
 
 use crate::jumbf::{boxio, labels};
 

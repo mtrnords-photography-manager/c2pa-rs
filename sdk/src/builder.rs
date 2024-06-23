@@ -20,22 +20,19 @@ use async_generic::async_generic;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use serde_with::skip_serializing_none;
 use uuid::Uuid;
-use zip::{
-    write::SimpleFileOptions,
-    ZipArchive, ZipWriter,
-};
+use zip::{write::SimpleFileOptions, ZipArchive, ZipWriter};
 
 use crate::{
     assertion::{AssertionBase, AssertionDecodeError},
-    assertions::{Actions, CreativeWork, Exif, labels, SoftwareAgent, Thumbnail, User, UserCbor},
-    AsyncSigner,
+    assertions::{labels, Actions, CreativeWork, Exif, SoftwareAgent, Thumbnail, User, UserCbor},
     claim::Claim,
-    ClaimGeneratorInfo,
     error::{Error, Result},
     ingredient::Ingredient,
     resource_store::{ResourceRef, ResourceResolver, ResourceStore},
     salt::DefaultSalt,
-    Signer, store::Store, utils::mime::format_to_mime,
+    store::Store,
+    utils::mime::format_to_mime,
+    AsyncSigner, ClaimGeneratorInfo, Signer,
 };
 
 /// A Manifest Definition
@@ -784,13 +781,11 @@ mod tests {
     use std::io::Cursor;
 
     use serde_json::json;
-
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    use crate::{Reader, utils::test::temp_signer};
-
     use super::*;
+    use crate::{utils::test::temp_signer, Reader};
 
     #[cfg(target_arch = "wasm32")]
     wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
