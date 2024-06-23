@@ -11,12 +11,12 @@
 // specific language governing permissions and limitations under
 // each license.
 
-#[cfg(feature = "file_io")]
-use std::path::Path;
 use std::{
     collections::HashMap,
     io::{Read, Seek, Write},
 };
+#[cfg(feature = "file_io")]
+use std::path::Path;
 
 use async_generic::async_generic;
 #[cfg(feature = "json_schema")]
@@ -25,12 +25,12 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     claim::ClaimAssetData,
+    Error,
     jumbf::labels::manifest_label_from_uri,
+    Manifest,
+    Result,
     status_tracker::{DetailedStatusTracker, StatusTracker},
-    store::Store,
-    utils::base64,
-    validation_status::{status_for_store, ValidationStatus},
-    Error, Manifest, Result,
+    store::Store, utils::base64, validation_status::{status_for_store, ValidationStatus},
 };
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -158,7 +158,7 @@ impl ManifestStore {
                 Ok(manifest) => {
                     manifest_store
                         .manifests
-                        .insert(manifest_label.to_owned(), manifest);
+                        .insert(manifest_label.to_string(), manifest);
                 }
                 Err(e) => {
                     statuses.push(ValidationStatus::from_error(&e));
@@ -460,8 +460,9 @@ mod tests {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    use super::*;
     use crate::{status_tracker::OneShotStatusTracker, utils::test::create_test_store};
+
+    use super::*;
 
     #[cfg(target_arch = "wasm32")]
     wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
