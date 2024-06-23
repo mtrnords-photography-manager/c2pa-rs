@@ -20,7 +20,10 @@ use async_generic::async_generic;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use serde_with::skip_serializing_none;
 use uuid::Uuid;
-use zip::{write::FileOptions, ZipArchive, ZipWriter};
+use zip::{
+    write::SimpleFileOptions,
+    ZipArchive, ZipWriter,
+};
 
 use crate::{
     assertion::{AssertionBase, AssertionDecodeError},
@@ -356,16 +359,13 @@ impl Builder {
     /// * `stream` - A stream to write the zip into.
     /// # Errors
     /// * If the archive cannot be written.
-    pub fn to_archive<T: zip::write::FileOptionExtension + std::marker::Copy>(
-        &mut self,
-        stream: impl Write + Seek,
-    ) -> Result<()> {
+    pub fn to_archive(&mut self, stream: impl Write + Seek) -> Result<()> {
         drop(
             // this drop seems to be required to force a flush before reading back.
             {
                 let mut zip = ZipWriter::new(stream);
-                let options: FileOptions<'_, T> =
-                    FileOptions::default().compression_method(zip::CompressionMethod::Stored);
+                let options =
+                    SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
                 zip.start_file("manifest.json", options)
                     .map_err(|e| Error::OtherError(Box::new(e)))?;
                 zip.write_all(&serde_json::to_vec(self)?)?;
