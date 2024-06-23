@@ -13,13 +13,12 @@
 
 use std::io::{Read, Seek};
 
-use image::{io::Reader, ImageFormat};
+use image::{ImageFormat, io::Reader};
 
 use crate::{Error, Result};
 
 // max edge size allowed in pixels for thumbnail creation
 const THUMBNAIL_LONGEST_EDGE: u32 = 1024;
-const THUMBNAIL_JPEG_QUALITY: u8 = 80;
 
 ///  utility to generate a thumbnail from a file at path
 /// returns Result (format, image_bits) if successful, otherwise Error
@@ -37,11 +36,8 @@ pub fn make_thumbnail(path: &std::path::Path) -> Result<(String, Vec<u8>)> {
     // for png files, use png thumbnails if there is an alpha channel
     // for other supported types try a jpeg thumbnail
     let (output_format, format) = match format {
-        ImageFormat::Png if img.color().has_alpha() => (image::ImageOutputFormat::Png, "image/png"),
-        _ => (
-            image::ImageOutputFormat::Jpeg(THUMBNAIL_JPEG_QUALITY),
-            "image/jpeg",
-        ),
+        ImageFormat::Png if img.color().has_alpha() => (ImageFormat::Png, "image/png"),
+        _ => (ImageFormat::Jpeg, "image/jpeg"),
     };
     let thumbnail_bits = Vec::new();
     let mut cursor = std::io::Cursor::new(thumbnail_bits);
@@ -74,11 +70,8 @@ pub fn make_thumbnail_from_stream<R: Read + Seek + ?Sized>(
     // for png files, use png thumbnails for transparency
     // for other supported types try a jpeg thumbnail
     let (output_format, format) = match format {
-        ImageFormat::Png => (image::ImageOutputFormat::Png, "image/png"),
-        _ => (
-            image::ImageOutputFormat::Jpeg(THUMBNAIL_JPEG_QUALITY),
-            "image/jpeg",
-        ),
+        ImageFormat::Png => (ImageFormat::Png, "image/png"),
+        _ => (ImageFormat::Jpeg, "image/jpeg"),
     };
     let thumbnail_bits = Vec::new();
     let mut cursor = std::io::Cursor::new(thumbnail_bits);
