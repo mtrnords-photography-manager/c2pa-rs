@@ -17,22 +17,22 @@ use std::{
 };
 
 use async_generic::async_generic;
-use serde::{Deserialize, Serialize};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use serde_with::skip_serializing_none;
 use uuid::Uuid;
 use zip::{write::FileOptions, ZipArchive, ZipWriter};
 
 use crate::{
-    assertion::AssertionBase,
-    assertions::{labels, Actions, CreativeWork, Exif, SoftwareAgent, Thumbnail, User, UserCbor},
+    assertion::{AssertionBase, AssertionDecodeError},
+    assertions::{Actions, CreativeWork, Exif, labels, SoftwareAgent, Thumbnail, User, UserCbor},
+    AsyncSigner,
     claim::Claim,
+    ClaimGeneratorInfo,
     error::{Error, Result},
     ingredient::Ingredient,
     resource_store::{ResourceRef, ResourceResolver, ResourceStore},
     salt::DefaultSalt,
-    store::Store,
-    utils::mime::format_to_mime,
-    AsyncSigner, ClaimGeneratorInfo, Signer,
+    Signer, store::Store, utils::mime::format_to_mime,
 };
 
 /// A Manifest Definition
@@ -108,9 +108,6 @@ pub struct AssertionDefinition {
     pub data: AssertionData,
 }
 
-use serde::de::DeserializeOwned;
-
-use crate::assertion::AssertionDecodeError;
 impl AssertionDefinition {
     pub(crate) fn to_assertion<T: DeserializeOwned>(&self) -> Result<T> {
         match &self.data {
@@ -359,12 +356,15 @@ impl Builder {
     /// * `stream` - A stream to write the zip into.
     /// # Errors
     /// * If the archive cannot be written.
-    pub fn to_archive(&mut self, stream: impl Write + Seek) -> Result<()> {
+    pub fn to_archive<T: zip::write::FileOptionExtension + std::marker::Copy>(
+        &mut self,
+        stream: impl Write + Seek,
+    ) -> Result<()> {
         drop(
             // this drop seems to be required to force a flush before reading back.
             {
                 let mut zip = ZipWriter::new(stream);
-                let options =
+                let options: FileOptions<'_, T> =
                     FileOptions::default().compression_method(zip::CompressionMethod::Stored);
                 zip.start_file("manifest.json", options)
                     .map_err(|e| Error::OtherError(Box::new(e)))?;
@@ -673,7 +673,7 @@ impl Builder {
             {
                 stream.rewind()?;
                 self.resources
-                    .add(&self.definition.instance_id.clone(), image)?;
+                    .add(self.definition.instance_id.clone(), image)?;
                 self.definition.thumbnail = Some(ResourceRef::new(
                     format,
                     self.definition.instance_id.clone(),
@@ -780,14 +780,18 @@ impl Builder {
 mod tests {
     #![allow(clippy::expect_used)]
     #![allow(clippy::unwrap_used)]
+
     use std::io::Cursor;
 
     use serde_json::json;
+
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
+    use crate::{Reader, utils::test::temp_signer};
+
     use super::*;
-    use crate::{utils::test::temp_signer, Reader};
+
     #[cfg(target_arch = "wasm32")]
     wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 
